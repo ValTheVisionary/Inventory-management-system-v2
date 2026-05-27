@@ -22,6 +22,8 @@ router.post('/categories',auth,cat.create);
 router.put('/categories/:id',auth,cat.update);
 router.delete('/categories/:id',auth,permit('ADMIN','MANAGER'),cat.remove);
 
+router.get('/users/me',auth,users.me);
+router.patch('/users/me',auth,users.updateMe);
 router.get('/users',auth,permit('ADMIN','MANAGER'),users.list);
 router.post('/users',auth,permit('ADMIN'),users.create);
 router.put('/users/:id',auth,permit('ADMIN','MANAGER'),users.update);

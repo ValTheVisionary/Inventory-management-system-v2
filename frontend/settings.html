@@ -59,10 +59,10 @@
     </nav>
 
     <div class="sidebar__user">
-      <div class="user-avatar">JD</div>
+      <div class="user-avatar" id="sidebarUserAvatar">--</div>
       <div class="user-info">
-        <span class="user-name">James Donovan</span>
-        <span class="user-role">Administrator</span>
+        <span class="user-name" id="sidebarUserName">Loading...</span>
+        <span class="user-role" id="sidebarUserRole">—</span>
       </div>
       <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
     </div>
@@ -180,7 +180,7 @@
                 <label class="form-label" for="notifEmail">Notification Email</label>
                 <div class="input-with-icon">
                   <svg class="input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                  <input id="notifEmail" name="notifEmail" type="email" class="form-input input-with-icon-padding" value="admin@company.com" />
+                  <input id="notifEmail" name="notifEmail" type="email" class="form-input input-with-icon-padding" />
                 </div>
               </div>
               <div class="section-footer">
@@ -243,10 +243,10 @@
             </div>
             <div class="section-body">
               <div class="user-profile-card">
-                <div class="user-avatar">JD</div>
+                <div class="user-avatar" id="accountUserAvatar">--</div>
                 <div class="user-info">
-                  <p class="user-name">James Donovan</p>
-                  <span class="user-role-badge">ADMINISTRATOR</span>
+                  <p class="user-name" id="accountUserName">Loading...</p>
+                  <span class="user-role-badge" id="accountUserRole">—</span>
                 </div>
                 <div class="user-status-container">
                   <div class="user-status-badge">
@@ -257,7 +257,7 @@
               </div>
               <div class="form-field">
                 <label class="form-label" for="displayName">Display Name</label>
-                <input id="displayName" name="displayName" type="text" class="form-input" value="James Donovan" />
+                <input id="displayName" name="displayName" type="text" class="form-input"  />
               </div>
               <div class="password-section">
                 <div class="password-header">
