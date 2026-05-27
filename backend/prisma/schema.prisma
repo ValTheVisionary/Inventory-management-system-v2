@@ -1,14 +1,102 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum MovementType {
+  IN
+  OUT
+  ADJUSTMENT
+}
+
+enum AlertSeverity {
+  CRITICAL
+  WARNING
+  INFO
+}
+
+model User {
+  id           Int             @id @default(autoincrement())
+  name         String
+  email        String          @unique
+  passwordHash String
+  role         UserRole        @default(STAFF)
+  status       UserStatus      @default(ACTIVE)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  movements    StockMovement[]
+  settings     Setting[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  icon      String    @default("📦")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+}
+
+model Product {
+  id               Int             @id @default(autoincrement())
+  name             String
+  sku              String          @unique
+  description      String?         @db.Text
+  stock            Int             @default(0)
+  reorderThreshold Int             @default(0)
+  price            Decimal         @db.Decimal(10, 2)
+  categoryId       Int
+  category         Category        @relation(fields: [categoryId], references: [id])
+  movements        StockMovement[]
+  alerts           Alert[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+model StockMovement {
+  id        Int          @id @default(autoincrement())
+  productId Int
+  userId    Int?
+  type      MovementType
+  quantity  Int
+  note      String?
+  createdAt DateTime     @default(now())
+  product   Product      @relation(fields: [productId], references: [id])
+  user      User?        @relation(fields: [userId], references: [id])
+}
+
+model Alert {
+  id          Int           @id @default(autoincrement())
+  productId   Int?
+  severity    AlertSeverity
+  message     String
+  isRead      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  dismissedAt DateTime?
+  product     Product?      @relation(fields: [productId], references: [id])
+}
+
+model Setting {
+  id          Int      @id @default(autoincrement())
+  section     String   @unique
+  payload     Json
+  updatedById Int?
+  updatedBy   User?    @relation(fields: [updatedById], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

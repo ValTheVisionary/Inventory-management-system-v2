@@ -1,0 +1,1 @@
+-- Create tables via prisma migrate dev using schema.prisma
