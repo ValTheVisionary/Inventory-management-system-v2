@@ -66,8 +66,14 @@
         try {
           const res = await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:document.getElementById('login-email').value.trim(),password:document.getElementById('login-password').value})});
           const data = await res.json();
-          if(!res.ok || !data.token) throw new Error(data.message || 'Invalid credentials');
-          localStorage.setItem(TOKEN_KEY, data.token); location.href='index.html';
+
+          if (!res.ok || !data.data?.token) {
+            throw new Error(data.message || 'Invalid credentials');
+          }
+
+          localStorage.setItem(TOKEN_KEY, data.data.token);
+
+          location.href = 'index.html';
         } catch(err){ showMsg(err.message || 'Network error during login.', false); }
       });
       return;
