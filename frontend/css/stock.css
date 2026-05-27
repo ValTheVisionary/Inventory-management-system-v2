@@ -1,0 +1,490 @@
+/* ============================================================
+   stock.css — Stock Management page styles
+   Depends on: dashboard.css (shared tokens, sidebar, header, toast)
+   ============================================================ */
+
+/* ── Stat Cards Grid ───────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.stat-card.accent {
+  background: rgba(183, 28, 28, 0.12);
+  border-color: rgba(183, 28, 28, 0.40);
+}
+
+.stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stat-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-card-icon.accent {
+  background: rgba(229, 57, 53, 0.18);
+}
+
+.stat-card-value {
+  font-size: 30px;
+  font-weight: 700;
+  color: #F5F5F5;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.stat-card-value.accent {
+  color: #F87171;
+}
+
+.stat-card-subtitle {
+  font-size: 11px;
+  color: #555555;
+  margin: -4px 0 0;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Search input */
+.search-input-wrapper {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 14px;
+  height: 14px;
+  color: #666666;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #F5F5F5;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.search-input::placeholder { color: #666666; }
+.search-input:focus        { border-color: #E53935; }
+
+/* Restock quantity control */
+.restock-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.restock-label {
+  font-size: 12px;
+  color: #666666;
+  white-space: nowrap;
+}
+
+.restock-input {
+  width: 56px;
+  background: transparent;
+  border: none;
+  color: #F5F5F5;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  text-align: center;
+}
+
+.restock-input::-webkit-outer-spin-button,
+.restock-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.restock-input[type=number]               { -moz-appearance: textfield; }
+
+/* Buttons */
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btn-primary {
+  background: rgba(229, 57, 53, 0.12);
+  border: 1px solid rgba(229, 57, 53, 0.30);
+  color: #F87171;
+}
+
+.btn-primary:hover {
+  background: rgba(229, 57, 53, 0.18);
+  border-color: rgba(229, 57, 53, 0.40);
+}
+
+.btn-secondary {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: #888888;
+}
+
+.btn-secondary:hover {
+  background: #252525;
+  color: #F5F5F5;
+}
+
+/* ── Filter Tabs ───────────────────────────────────────────── */
+.tab-filter-container {
+  display: flex;
+  gap: 4px;
+  background: #1A1A1A;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.tab-filter-btn {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  color: #666666;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab-filter-btn.active {
+  background: #E53935;
+  color: #FFFFFF;
+}
+
+.tab-filter-btn:hover:not(.active) {
+  color: #888888;
+}
+
+.tab-count {
+  font-size: 11px;
+  opacity: 0.75;
+}
+
+/* ── Data Table ────────────────────────────────────────────── */
+.table-container {
+  background: #1E1E1E;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.stock-table thead tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stock-table th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.th-checkbox { padding-left: 20px; padding-right: 16px; }
+.th-center   { text-align: center; }
+
+.stock-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: transparent;
+  transition: background 0.12s ease;
+}
+
+.stock-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Row states */
+.stock-table tbody tr.row-low-stock {
+  background: rgba(183, 28, 28, 0.12);
+}
+
+.stock-table tbody tr.row-selected {
+  background: rgba(229, 57, 53, 0.08) !important;
+}
+
+.stock-table tbody tr:hover:not(.row-selected) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.stock-table td {
+  padding: 14px 16px;
+  color: #F5F5F5;
+}
+
+.td-checkbox { padding-left: 20px; }
+
+.td-product-name {
+  font-weight: 500;
+  color: #F5F5F5;
+}
+
+.td-sku {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: #888888;
+}
+
+.td-category  { color: #888888; }
+.td-threshold { color: #666666; }
+
+/* Stock value coloring */
+.td-stock-value          { font-weight: 600; }
+.td-stock-value.in-stock { color: #34D399; }
+.td-stock-value.low-stock{ color: #F87171; }
+.td-stock-value.out-stock{ color: #666666; }
+
+.td-stock-units {
+  font-size: 11px;
+  color: #444444;
+  font-weight: 400;
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-in-stock            { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.status-in-stock .status-dot{ background: #34D399; }
+
+.status-low-stock             { background: rgba(229, 57, 53, 0.18); color: #F87171; }
+.status-low-stock .status-dot { background: #F87171; }
+
+.status-out-stock             { background: rgba(100, 100, 100, 0.18); color: #888888; }
+.status-out-stock .status-dot { background: #666666; }
+
+/* Checkbox styling */
+.stock-table input[type="checkbox"] {
+  accent-color: #E53935;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* ── Stock Adjustment Controls ─────────────────────────────── */
+.stock-adjust-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.adjust-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #252525;
+  color: #888888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.12s ease, color 0.12s ease;
+  padding: 0;
+}
+
+.adjust-btn svg { pointer-events: none; }
+
+.adjust-btn:hover {
+  background: #2A2A2A;
+  color: #F5F5F5;
+}
+
+.adjust-input {
+  width: 52px;
+  text-align: center;
+  background: #252525;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  color: #F5F5F5;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  padding: 5px 6px;
+  outline: none;
+  transition: border-color 0.12s ease, color 0.12s ease;
+}
+
+.adjust-input::-webkit-inner-spin-button,
+.adjust-input::-webkit-outer-spin-button { opacity: 0.3; }
+
+.adjust-input.positive { border-color: #E53935; color: #34D399; }
+.adjust-input.negative { border-color: #E53935; color: #F87171; }
+
+.apply-btn {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #E53935;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s ease;
+}
+
+.apply-btn:hover { background: #C62828; }
+
+/* ── Empty State ───────────────────────────────────────────── */
+.empty-state-cell {
+  padding: 60px 20px;
+  text-align: center;
+  color: #444444;
+  font-size: 14px;
+}
+
+.empty-state-icon {
+  width: 28px;
+  height: 28px;
+  color: #333333;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+/* ── Footer Text ───────────────────────────────────────────── */
+.footer-text {
+  font-size: 11px;
+  color: #555555;
+  margin: 0;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────── */
+.main-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+
+.main-content::-webkit-scrollbar        { width: 4px; }
+.main-content::-webkit-scrollbar-track  { background: transparent; }
+.main-content::-webkit-scrollbar-thumb  { background: rgba(255, 255, 255, 0.08); border-radius: 4px; }
+.main-content::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input-wrapper { min-width: 100%; }
+  .restock-control      { width: 100%; }
+  .btn                  { justify-content: center; }
+
+  .table-container { overflow-x: auto; }
+  .stock-table     { min-width: 900px; }
+
+  .tab-filter-container { overflow-x: auto; }
+  .tab-filter-btn       { flex: none; }
+}
+
+@media (max-width: 640px) {
+  .main-content { padding: 16px; }
+  .stats-grid   { grid-template-columns: 1fr; }
+}
