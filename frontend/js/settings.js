@@ -1,8 +1,5 @@
 'use strict';
 
-function getInitials(name=''){return name.split(' ').filter(Boolean).map(p=>p[0]).join('').slice(0,2).toUpperCase()||'--';}
-function roleLabel(role=''){return String(role).replaceAll('_',' ').toUpperCase();}
-
 async function loadSettings(){
   const r=await window.auth.apiFetch('/api/settings');
   const j=await r.json();
@@ -17,25 +14,11 @@ async function loadSettings(){
   });
 }
 
-function fillProfile(user){
-  const name=user.name||'';
-  const email=user.email||'';
-  const initials=getInitials(name);
-  document.getElementById('displayName').value=name;
-  const emailInput=document.getElementById('notifEmail'); if(emailInput && !emailInput.value) emailInput.value=email;
-  const sidebarName=document.getElementById('sidebarUserName'); if(sidebarName) sidebarName.textContent=name;
-  const sidebarRole=document.getElementById('sidebarUserRole'); if(sidebarRole) sidebarRole.textContent=roleLabel(user.role);
-  const sidebarAvatar=document.getElementById('sidebarUserAvatar'); if(sidebarAvatar) sidebarAvatar.textContent=initials;
-  const accountName=document.getElementById('accountUserName'); if(accountName) accountName.textContent=name;
-  const accountRole=document.getElementById('accountUserRole'); if(accountRole) accountRole.textContent=roleLabel(user.role);
-  const accountAvatar=document.getElementById('accountUserAvatar'); if(accountAvatar) accountAvatar.textContent=initials;
+async function loadProfile(){
+  const user = await window.auth.fetchCurrentUser();
+  window.auth.renderUserProfile(user || {});
 }
 
-async function loadProfile(){
-  const res=await window.auth.apiFetch('/api/users/me');
-  const body=await res.json();
-  fillProfile(body.data||{});
-}
 
 function gather(sectionId){
   const s=document.querySelector(`[data-section-id="${sectionId}"]`);
@@ -63,7 +46,7 @@ async function saveAccount(){
   const res=await window.auth.apiFetch('/api/users/me',{method:'PATCH',body:JSON.stringify(payload)});
   const body=await res.json();
   if(!res.ok) throw new Error(body.message||'Failed to update account');
-  fillProfile(body.data||{});
+  window.auth.setCurrentUser(body.data||{});
   ['currentPassword','newPassword','confirmPassword'].forEach(id=>{const el=document.getElementById(id);if(el) el.value='';});
 }
 
