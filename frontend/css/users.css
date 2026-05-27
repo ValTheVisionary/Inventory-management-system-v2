@@ -1,0 +1,376 @@
+/* ─────────────────────────────────────────────────────────────────
+   users.css  —  Users Management page styles
+   Depends on: dashboard.css (CSS variables, sidebar, header, toast)
+   NOTE: .user-avatar, .user-info, .user-name, .user-role are defined
+         in dashboard.css (sidebar footer). Don't redefine them here.
+───────────────────────────────────────────────────────────────── */
+
+/* ── Toolbar ─────────────────────────────────────────────────────── */
+.users-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Search Input ────────────────────────────────────────────────── */
+.search-input-wrapper {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 14px 10px 40px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.search-input::placeholder { color: var(--color-text-placeholder); }
+.search-input:focus { border-color: var(--color-primary); }
+
+/* ── Select Dropdowns ────────────────────────────────────────────── */
+.select-wrapper {
+  position: relative;
+}
+
+.select-dropdown {
+  padding: 10px 32px 10px 14px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.select-dropdown:focus { border-color: var(--color-primary); }
+.select-dropdown option { background: var(--color-bg-card); color: var(--color-text-primary); }
+
+/* ── Add User Button ─────────────────────────────────────────────── */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 10px 20px;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  font-family: var(--font-family);
+  box-shadow: var(--shadow-btn-red);
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* ── Table Container ─────────────────────────────────────────────── */
+.table-container {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* ── Users Table ─────────────────────────────────────────────────── */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-base);
+}
+
+.users-table thead tr {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.users-table th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  white-space: nowrap;
+}
+
+.th-user    { padding-left: 20px; }
+.th-actions { text-align: right; padding-right: 20px; }
+
+.users-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background 0.12s;
+}
+.users-table tbody tr:last-child { border-bottom: none; }
+.users-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.users-table td {
+  padding: 14px 16px;
+  color: var(--color-text-primary);
+}
+
+/* ── User Cell ───────────────────────────────────────────────────── */
+.td-user { padding-left: 20px; }
+
+.td-user-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Row avatar — separate from sidebar .user-avatar */
+.row-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.td-user-name {
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ── Email & Last Active Cells ───────────────────────────────────── */
+.td-email       { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+.td-last-active {
+  color: var(--color-text-dim);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Actions Cell ────────────────────────────────────────────────── */
+.td-actions         { text-align: right; padding-right: 20px; }
+.td-actions-content { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+
+/* ── Role Badges ─────────────────────────────────────────────────── */
+.role-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.role-administrator { background: var(--color-alert-bg);               color: var(--color-status-red); }
+.role-manager       { background: rgba(59,130,246,0.18);               color: #60a5fa; }
+.role-viewer        { background: rgba(100,100,100,0.18);              color: #9ca3af; }
+
+/* ── Status Badges ───────────────────────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.status-active  { background: var(--color-status-green-bg); color: #34d399; }
+.status-active  .status-dot { background: #34d399; }
+.status-inactive { background: rgba(100,100,100,0.18); color: #888; }
+.status-inactive .status-dot { background: #666; }
+
+/* ── Action Buttons ──────────────────────────────────────────────── */
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-input);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  font-family: var(--font-family);
+  transition: all 0.12s;
+  white-space: nowrap;
+}
+
+.btn-edit:hover       { background: rgba(255,255,255,0.03); border-color: var(--color-border-hover); color: var(--color-text-primary); }
+.btn-deactivate       { border-color: rgba(229,57,53,0.25); color: var(--color-status-red); }
+.btn-deactivate:hover { background: rgba(229,57,53,0.1);   border-color: rgba(229,57,53,0.4); }
+.btn-activate         { border-color: rgba(16,185,129,0.25); color: #34d399; }
+.btn-activate:hover   { background: rgba(16,185,129,0.1);   border-color: rgba(16,185,129,0.4); }
+
+.action-icon { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* ── Empty State ─────────────────────────────────────────────────── */
+.empty-state-cell {
+  padding: 60px 20px;
+  text-align: center;
+  color: #444;
+  font-size: var(--text-sm);
+}
+
+.empty-icon { width: 28px; height: 28px; color: #333; display: block; margin: 0 auto 12px; }
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.footer-text { font-size: 11px; color: var(--color-text-dim); margin: 0; }
+
+/* ── Modal Overlay ───────────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 16px;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+/* ── Modal Container ─────────────────────────────────────────────── */
+.modal-container {
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-modal);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+/* ── Modal Header ────────────────────────────────────────────────── */
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-title    { font-size: var(--text-lg);  font-weight: var(--weight-semibold); color: var(--color-text-primary); margin: 0 0 2px; }
+.modal-subtitle { font-size: 11px; color: var(--color-text-dim); margin: 0; }
+
+.modal-close-btn {
+  width: 32px; height: 32px;
+  border: none; border-radius: var(--radius-md);
+  background: transparent; color: #666;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s; flex-shrink: 0;
+}
+.modal-close-btn:hover { background: rgba(255,255,255,0.05); color: var(--color-text-primary); }
+
+/* ── Modal Body ──────────────────────────────────────────────────── */
+.modal-body {
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.form-field { display: flex; flex-direction: column; }
+
+.form-label {
+  display: block;
+  font-size: 10px; font-weight: var(--weight-semibold);
+  color: var(--color-text-dim);
+  text-transform: uppercase; letter-spacing: var(--tracking-widest);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%; padding: 10px 14px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family); font-size: var(--text-base);
+  color: var(--color-text-primary);
+  outline: none; box-sizing: border-box; transition: border-color 0.15s;
+}
+.form-input::placeholder { color: var(--color-text-placeholder); }
+.form-input:focus        { border-color: var(--color-primary); }
+.form-input.input-error  { border-color: var(--color-alert); }
+
+/* ── Toggle Groups ───────────────────────────────────────────────── */
+.toggle-group { display: flex; gap: 8px; }
+
+.toggle-btn {
+  flex: 1; padding: 9px 8px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-input);
+  background: transparent; color: #666;
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  cursor: pointer; font-family: var(--font-family); transition: all 0.12s;
+}
+
+.toggle-btn.active           { border-color: var(--color-primary);        background: rgba(229,57,53,0.15); color: var(--color-status-red); }
+.toggle-btn.toggle-active.active  { border-color: #10b981; background: rgba(16,185,129,0.12); color: #34d399; }
+.toggle-btn.toggle-inactive.active { border-color: var(--color-primary);  background: rgba(229,57,53,0.12); color: var(--color-status-red); }
+.toggle-btn:hover:not(.active)     { background: rgba(255,255,255,0.02); color: #aaa; }
+
+/* ── Modal Footer ────────────────────────────────────────────────── */
+.modal-footer { display: flex; gap: 12px; padding: 0 24px 24px; }
+
+.modal-btn {
+  flex: 1; padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--text-base); cursor: pointer;
+  font-family: var(--font-family); transition: all 0.12s;
+}
+
+.modal-btn-cancel { border: 1px solid var(--color-border-hover); background: transparent; color: var(--color-text-muted); font-weight: var(--weight-medium); }
+.modal-btn-cancel:hover { background: rgba(255,255,255,0.03); color: var(--color-text-primary); }
+.modal-btn-save   { border: none; background: var(--color-primary); color: #fff; font-weight: var(--weight-semibold); }
+.modal-btn-save:hover { background: var(--color-primary-hover); }
+
+/* ── Animations ──────────────────────────────────────────────────── */
+@keyframes modalFadeIn  { from { opacity: 0; }                          to { opacity: 1; } }
+@keyframes modalSlideIn { from { transform: scale(0.95) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+
+/* ── Focus States ────────────────────────────────────────────────── */
+*:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+*:focus:not(:focus-visible) { outline: none; }
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .table-container { overflow-x: auto; }
+}
+
+@media (max-width: 767px) {
+  .users-toolbar { flex-direction: column; align-items: stretch; }
+  .search-input-wrapper { min-width: 100%; }
+  .select-wrapper, .select-dropdown { width: 100%; }
+  .btn-primary { width: 100%; justify-content: center; }
+  .users-table { min-width: 800px; }
+  .modal-overlay { padding: 0; }
+  .modal-container { max-width: 100%; border-radius: 0; min-height: 100dvh; }
+}
