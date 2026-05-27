@@ -1,8 +1,10 @@
 const express = require('express');
 const routes = require('./routes');
+const path = require("path");
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 const app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../../frontend")));
 app.get('/health', (_req,res)=>res.json({success:true,message:'Inventory API is running'}));
 app.use('/api', routes);
 app.use(notFound);

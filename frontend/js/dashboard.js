@@ -218,6 +218,23 @@ function dismissToast() {
 
 document.getElementById('toast-dismiss').addEventListener('click', dismissToast);
 
+
+
+async function loadDashboardData() {
+  if (!window.auth) return;
+  try {
+    const res = await window.auth.apiFetch('/api/dashboard');
+    if (!res.ok) throw new Error('Failed to load dashboard');
+    const data = await res.json();
+    if (typeof data.totalProducts === 'number') document.getElementById('stat-total-products').textContent = data.totalProducts;
+    if (typeof data.totalCategories === 'number') document.getElementById('stat-total-categories').textContent = data.totalCategories;
+    if (typeof data.lowStockItems === 'number') document.getElementById('stat-low-stock').textContent = data.lowStockItems;
+    if (typeof data.totalStockValue === 'number') document.getElementById('stat-total-value').textContent = '$' + Number(data.totalStockValue).toLocaleString('en-US');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
@@ -228,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderStatCards();
   renderActivityFeed();
   initCharts();
+  loadDashboardData();
 
   // Auto-show toast on load after 800ms
   setTimeout(() => showToast('Laptop Stand Pro', 8), 800);

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Inventory Auth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <div class="auth-card">
+    <h1>Inventory Management</h1>
+    <p class="sub">Sign in or create an account to access the dashboard.</p>
+    <div class="tabs"><button id="show-login" class="active" type="button">Login</button><button id="show-register" type="button">Register</button></div>
+
+    <form id="login-form" class="active">
+      <label>Email<input id="login-email" type="email" required></label>
+      <label>Password<input id="login-password" type="password" required></label>
+      <button type="submit">Login</button>
+    </form>
+
+    <form id="register-form">
+      <label>Name<input id="register-name" required></label>
+      <label>Email<input id="register-email" type="email" required></label>
+      <label>Password<input id="register-password" type="password" minlength="6" required></label>
+      <button type="submit">Register</button>
+    </form>
+    <div id="auth-message" class="msg"></div>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

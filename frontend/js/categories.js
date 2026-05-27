@@ -379,3 +379,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lowItem) setTimeout(() => showToast(lowItem.name, lowItem.stock), 800);
   }
 });
+
+
+// Auth/session validation for protected routes
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.auth) return;
+  try {
+    const endpoint = '/api/dashboard';
+    await window.auth.apiFetch(endpoint);
+  } catch (err) {
+    console.error(err);
+  }
+});

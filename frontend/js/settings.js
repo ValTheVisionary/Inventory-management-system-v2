@@ -396,3 +396,14 @@ document.getElementById('alertPill').addEventListener('click', () => {
   loadSettings();
   setTimeout(() => showToast('3 low stock alerts need attention'), 800);
 })();
+
+// Auth/session validation for protected routes
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.auth) return;
+  try {
+    const endpoint = '/api/dashboard';
+    await window.auth.apiFetch(endpoint);
+  } catch (err) {
+    console.error(err);
+  }
+});
