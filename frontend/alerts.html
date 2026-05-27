@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alerts — Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/alerts.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-text__top">Inventory</span>
+        <span class="logo-text__bottom">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item" href="index.html" data-label="Dashboard">
+        <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+        <span class="nav-item__label">Dashboard</span>
+      </a>
+      <a class="nav-item" href="products.html" data-label="Products">
+        <i data-lucide="package" class="nav-item__icon"></i>
+        <span class="nav-item__label">Products</span>
+      </a>
+      <a class="nav-item" href="categories.html" data-label="Categories">
+        <i data-lucide="tag" class="nav-item__icon"></i>
+        <span class="nav-item__label">Categories</span>
+      </a>
+      <a class="nav-item" href="stock.html" data-label="Stock">
+        <i data-lucide="layers" class="nav-item__icon"></i>
+        <span class="nav-item__label">Stock</span>
+      </a>
+      <a class="nav-item active" href="alerts.html" data-label="Alerts">
+        <i data-lucide="bell" class="nav-item__icon"></i>
+        <span class="nav-item__label">Alerts</span>
+        <span class="nav-item__badge" id="alerts-badge">4</span>
+      </a>
+      <a class="nav-item" href="users.html" data-label="Users">
+        <i data-lucide="users" class="nav-item__icon"></i>
+        <span class="nav-item__label">Users</span>
+      </a>
+      <a class="nav-item" href="settings.html" data-label="Settings">
+        <i data-lucide="settings" class="nav-item__icon"></i>
+        <span class="nav-item__label">Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <span class="user-name">James Donovan</span>
+        <span class="user-role">Administrator</span>
+      </div>
+      <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════ MAIN ══ -->
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header__left">
+        <div class="header__title">Alerts</div>
+        <div class="header__date" id="headerDate"></div>
+      </div>
+      <div class="header__right">
+        <button class="alert-pill" id="alertPill">
+          <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+          <span id="alertPillText">4 low stock alerts</span>
+        </button>
+        <button class="bell-btn" id="bellBtn">
+          <i data-lucide="bell" style="width:17px;height:17px;"></i>
+          <span class="bell-btn__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scroll Area -->
+    <main class="main-content">
+      <section class="page-section">
+
+        <!-- Page Header -->
+        <div class="alerts-page-header">
+          <div class="alerts-header-left">
+            <h2 class="alerts-title">Alert Feed</h2>
+            <p class="alerts-subtitle" id="alertsSubtitle">
+              <span class="unread-count" id="unreadCount">4 unread</span> alerts require attention
+            </p>
+          </div>
+          <button class="btn-mark-all-read" id="btnMarkAllRead">
+            <i data-lucide="check-square" style="width:14px;height:14px;"></i>
+            Mark all as read
+          </button>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="tab-filter-container" role="tablist" aria-label="Filter alerts by severity">
+          <button class="tab-filter-btn active" data-filter="All" role="tab" aria-selected="true">
+            All <span class="tab-count">(8)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="critical" role="tab" aria-selected="false">
+            Critical <span class="tab-count">(2)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="warning" role="tab" aria-selected="false">
+            Warning <span class="tab-count">(3)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="info" role="tab" aria-selected="false">
+            Info <span class="tab-count">(3)</span>
+          </button>
+        </div>
+
+        <!-- Alert List -->
+        <div class="alert-list" id="alertList" role="list"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <i data-lucide="check-circle" style="width:40px;height:40px;color:#2A2A2A;"></i>
+          <p class="empty-heading">No alerts here</p>
+          <p class="empty-text" id="emptyText">All clear — no alerts at this time.</p>
+        </div>
+
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TOAST ══ -->
+<div class="toast" id="toast" role="alert" aria-live="assertive">
+  <div class="toast-icon">
+    <i data-lucide="bell" style="width:16px;height:16px;color:#FF1744;"></i>
+  </div>
+  <div class="toast__body">
+    <p class="toast-title">Stock Alert</p>
+    <p class="toast-msg" id="toastMsg">You have unread inventory alerts.</p>
+  </div>
+  <button class="toast__dismiss" id="toastClose" aria-label="Close notification">
+    <i data-lucide="x" style="width:14px;height:14px;"></i>
+  </button>
+</div>
+
+<div id="srAnnouncement" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);"></div>
+
+<script src="js/alerts.js"></script>
+</body>
+</html>
