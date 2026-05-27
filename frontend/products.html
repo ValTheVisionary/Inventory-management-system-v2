@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-text__top">Inventory</span>
+        <span class="logo-text__bottom">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item" href="index.html" data-label="Dashboard">
+        <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+        <span class="nav-item__label">Dashboard</span>
+      </a>
+      <a class="nav-item active" href="products.html" data-label="Products">
+        <i data-lucide="package" class="nav-item__icon"></i>
+        <span class="nav-item__label">Products</span>
+      </a>
+      <a class="nav-item" href="categories.html" data-label="Categories">
+        <i data-lucide="tag" class="nav-item__icon"></i>
+        <span class="nav-item__label">Categories</span>
+      </a>
+      <a class="nav-item" href="stock.html" data-label="Stock">
+        <i data-lucide="layers" class="nav-item__icon"></i>
+        <span class="nav-item__label">Stock</span>
+      </a>
+      <a class="nav-item" href="alerts.html" data-label="Alerts">
+        <i data-lucide="bell" class="nav-item__icon"></i>
+        <span class="nav-item__label">Alerts</span>
+        <span class="nav-item__badge" id="alerts-badge">3</span>
+      </a>
+      <a class="nav-item" href="users.html" data-label="Users">
+        <i data-lucide="users" class="nav-item__icon"></i>
+        <span class="nav-item__label">Users</span>
+      </a>
+      <a class="nav-item" href="settings.html" data-label="Settings">
+        <i data-lucide="settings" class="nav-item__icon"></i>
+        <span class="nav-item__label">Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <span class="user-name">James Donovan</span>
+        <span class="user-role">Administrator</span>
+      </div>
+      <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════ MAIN ══ -->
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header__left">
+        <div class="header__title">Products</div>
+        <div class="header__date" id="header-date"></div>
+      </div>
+      <div class="header__right">
+        <button class="alert-pill" id="header-alert-pill">
+          <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+          <span><span class="pill-count">3</span> Low Stock</span>
+        </button>
+        <button class="bell-btn" id="bell-btn">
+          <i data-lucide="bell" style="width:17px;height:17px;"></i>
+          <span class="bell-btn__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scroll Area -->
+    <main class="main-content">
+      <section class="page-section">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="search-bar">
+            <i data-lucide="search" class="search-bar__icon" style="width:14px;height:14px;"></i>
+            <input
+              type="text"
+              id="search-input"
+              class="search-bar__input"
+              placeholder="Search by product name or SKU…"
+              autocomplete="off"
+            >
+          </div>
+          <div class="category-filter">
+            <select id="category-filter" class="category-filter__select">
+              <option value="all">All Categories</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Peripherals">Peripherals</option>
+              <option value="Storage">Storage</option>
+              <option value="Networking">Networking</option>
+            </select>
+            <i data-lucide="chevron-down" class="category-filter__arrow" style="width:13px;height:13px;"></i>
+          </div>
+          <button class="btn-add-product" id="btn-add-product">
+            <i data-lucide="plus" style="width:15px;height:15px;"></i>
+            Add Product
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="product-table">
+            <thead class="table-head">
+              <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>SKU</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body" class="table-body">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer -->
+        <div class="table-footer">
+          <span id="footer-count" class="table-footer__count"></span>
+          <span id="low-stock-warning" class="table-footer__warning hidden">
+            <i data-lucide="alert-triangle" style="width:11px;height:11px;"></i>
+            <span id="low-stock-warning-text"></span>
+          </span>
+        </div>
+
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ MODAL ══ -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true">
+  <div class="modal-container">
+
+    <div class="modal-header">
+      <div class="modal-header__left">
+        <h2 id="modal-title">Add New Product</h2>
+        <p id="modal-subtitle">Fill in the details to add to inventory</p>
+      </div>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">
+        <i data-lucide="x" style="width:16px;height:16px;"></i>
+      </button>
+    </div>
+
+    <form id="modal-form" class="modal-body" onsubmit="return false">
+
+      <div class="form-field col-span-2">
+        <label class="form-label" for="field-name">Product Name</label>
+        <input class="form-input" id="field-name" type="text" placeholder="e.g. Wireless Headphones Pro">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-sku">SKU</label>
+        <input class="form-input form-input--mono" id="field-sku" type="text" placeholder="e.g. WH-001">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-category">Category</label>
+        <select class="form-select" id="field-category">
+          <option>Electronics</option>
+          <option>Accessories</option>
+          <option>Peripherals</option>
+          <option>Storage</option>
+          <option>Networking</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-stock">Stock Quantity</label>
+        <input class="form-input" id="field-stock" type="number" min="0" value="0">
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-reorder">Reorder Threshold</label>
+        <input class="form-input" id="field-reorder" type="number" min="0" value="10">
+      </div>
+
+      <div class="form-field col-span-2">
+        <label class="form-label" for="field-price">Price (USD)</label>
+        <div class="price-wrapper">
+          <span class="price-prefix">$</span>
+          <input class="form-input form-input--price" id="field-price" type="number" min="0" step="0.01" value="0.00">
+        </div>
+      </div>
+
+      <div class="form-field col-span-2">
+        <label class="form-label" for="field-description">Description</label>
+        <textarea class="form-textarea" id="field-description" placeholder="Brief product description…"></textarea>
+      </div>
+
+    </form>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" id="btn-cancel">Cancel</button>
+      <button class="btn-save" id="btn-save">Add Product</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TOAST ══ -->
+<div id="low-stock-toast" class="toast" role="alert" aria-live="assertive">
+  <i data-lucide="alert-triangle" style="width:19px;height:19px;color:#fff;flex-shrink:0;margin-top:2px;"></i>
+  <div class="toast__body">
+    <p class="toast__title">Low Stock Alert</p>
+    <p class="toast__msg">
+      <strong id="toast-product-name"></strong> has only
+      <strong id="toast-units"></strong> units left.
+    </p>
+  </div>
+  <button class="toast__dismiss" id="toast-dismiss-btn" aria-label="Dismiss alert">
+    <i data-lucide="x" style="width:15px;height:15px;"></i>
+  </button>
+</div>
+
+<script src="js/products.js"></script>
+</body>
+</html>
