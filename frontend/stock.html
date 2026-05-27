@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock — Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/stock.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-text__top">Inventory</span>
+        <span class="logo-text__bottom">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item" href="index.html">
+        <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+        <span class="nav-item__label">Dashboard</span>
+      </a>
+      <a class="nav-item" href="products.html">
+        <i data-lucide="package" class="nav-item__icon"></i>
+        <span class="nav-item__label">Products</span>
+      </a>
+      <a class="nav-item" href="categories.html">
+        <i data-lucide="tag" class="nav-item__icon"></i>
+        <span class="nav-item__label">Categories</span>
+      </a>
+      <a class="nav-item active" href="stock.html">
+        <i data-lucide="layers" class="nav-item__icon"></i>
+        <span class="nav-item__label">Stock</span>
+      </a>
+      <a class="nav-item" href="alerts.html">
+        <i data-lucide="bell" class="nav-item__icon"></i>
+        <span class="nav-item__label">Alerts</span>
+        <span class="nav-item__badge" id="alerts-badge" hidden>0</span>
+      </a>
+      <a class="nav-item" href="users.html">
+        <i data-lucide="users" class="nav-item__icon"></i>
+        <span class="nav-item__label">Users</span>
+      </a>
+      <a class="nav-item" href="settings.html">
+        <i data-lucide="settings" class="nav-item__icon"></i>
+        <span class="nav-item__label">Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <span class="user-name">James Donovan</span>
+        <span class="user-role">Administrator</span>
+      </div>
+      <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════ MAIN ══ -->
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header__left">
+        <div class="header__title">Stock</div>
+        <div class="header__date" id="header-date"></div>
+      </div>
+      <div class="header__right">
+        <button class="alert-pill" id="header-alert-pill" hidden>
+          <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+          <span class="pill-count">0</span>&nbsp;Low Stock
+        </button>
+        <button class="bell-btn" id="bell-btn">
+          <i data-lucide="bell" style="width:17px;height:17px;"></i>
+          <span class="bell-btn__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section id="page-stock" class="page-section">
+
+        <!-- STAT CARDS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Total SKUs</span>
+              <div class="stat-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-total">0</div>
+            <p class="stat-card-subtitle">Unique product lines</p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-label">In Stock</span>
+              <div class="stat-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-in-stock">0</div>
+            <p class="stat-card-subtitle">Products with healthy stock</p>
+          </div>
+
+          <div class="stat-card accent">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Low Stock</span>
+              <div class="stat-card-icon accent">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card-value accent" id="stat-low-stock">0</div>
+            <p class="stat-card-subtitle">Need restocking soon</p>
+          </div>
+
+          <div class="stat-card accent">
+            <div class="stat-card-header">
+              <span class="stat-card-label">Out of Stock</span>
+              <div class="stat-card-icon accent">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </div>
+            </div>
+            <div class="stat-card-value accent" id="stat-out-stock">0</div>
+            <p class="stat-card-subtitle">Require immediate action</p>
+          </div>
+        </div>
+
+        <!-- TOOLBAR -->
+        <div class="toolbar">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input
+              type="text"
+              class="search-input"
+              id="search-input"
+              placeholder="Search product or SKU…"
+              aria-label="Search products by name or SKU"
+            >
+          </div>
+
+          <div class="restock-control">
+            <span class="restock-label">Restock qty</span>
+            <input
+              type="number"
+              class="restock-input"
+              id="restock-qty"
+              value="50"
+              min="1"
+              aria-label="Bulk restock quantity"
+            >
+          </div>
+
+          <button class="btn btn-primary" id="bulk-restock-btn" aria-label="Bulk restock low stock items">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
+            </svg>
+            Bulk Restock Low Stock
+          </button>
+
+          <button class="btn btn-secondary" id="export-btn" aria-label="Export stock report as CSV">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Export CSV
+          </button>
+        </div>
+
+        <!-- STATUS FILTER TABS -->
+        <div class="tab-filter-container" role="tablist" aria-label="Filter by stock status">
+          <button class="tab-filter-btn active" data-filter="All" role="tab" aria-selected="true">
+            All <span class="tab-count" id="tab-count-all">(0)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="In Stock" role="tab" aria-selected="false">
+            In Stock <span class="tab-count" id="tab-count-in">(0)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="Low Stock" role="tab" aria-selected="false">
+            Low Stock <span class="tab-count" id="tab-count-low">(0)</span>
+          </button>
+          <button class="tab-filter-btn" data-filter="Out of Stock" role="tab" aria-selected="false">
+            Out of Stock <span class="tab-count" id="tab-count-out">(0)</span>
+          </button>
+        </div>
+
+        <!-- DATA TABLE -->
+        <div class="table-container">
+          <table class="stock-table" aria-label="Stock management table">
+            <thead>
+              <tr>
+                <th class="th-checkbox">
+                  <input type="checkbox" class="select-all-checkbox" id="select-all" aria-label="Select all products">
+                </th>
+                <th>Product Name</th>
+                <th>SKU</th>
+                <th>Category</th>
+                <th>Current Stock</th>
+                <th>Reorder Threshold</th>
+                <th>Status</th>
+                <th class="th-center">Adjust Stock</th>
+              </tr>
+            </thead>
+            <tbody id="stock-table-body">
+              <!-- Rows rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- FOOTER -->
+        <p class="footer-text" id="footer-text">Showing 0 of 0 products</p>
+
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- TOAST — matches dashboard.css pattern (hidden + toast--visible) -->
+<div id="low-stock-toast" class="toast" hidden>
+  <i data-lucide="alert-triangle" style="width:19px;height:19px;color:#fff;flex-shrink:0;margin-top:2px;"></i>
+  <div class="toast__body">
+    <div class="toast__title">Low Stock Alert</div>
+    <div class="toast__msg">
+      <strong id="toast-product-name"></strong> has only
+      <strong id="toast-units"></strong> units left.
+    </div>
+  </div>
+  <button class="toast__dismiss" id="toast-dismiss-btn" aria-label="Dismiss notification">
+    <i data-lucide="x" style="width:15px;height:15px;"></i>
+  </button>
+</div>
+
+<script src="js/stock.js"></script>
+</body>
+</html>
