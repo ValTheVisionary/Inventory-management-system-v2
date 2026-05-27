@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- ═══════════════════════════════════════ SIDEBAR ═══ -->
+    <aside class="sidebar">
+
+      <!-- Logo -->
+      <div class="sidebar__logo">
+        <div class="logo-icon">
+          <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+        </div>
+        <div class="logo-text">
+          <span class="logo-text__top">Inventory</span>
+          <span class="logo-text__bottom">Management System</span>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="sidebar__nav">
+        <a class="nav-item active" href="index.html" data-label="Dashboard">
+          <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+          <span class="nav-item__label">Dashboard</span>
+        </a>
+        <a class="nav-item" href="products.html" data-label="Products">
+          <i data-lucide="package" class="nav-item__icon"></i>
+          <span class="nav-item__label">Products</span>
+        </a>
+        <a class="nav-item" href="categories.html" data-label="Categories">
+          <i data-lucide="tag" class="nav-item__icon"></i>
+          <span class="nav-item__label">Categories</span>
+        </a>
+        <a class="nav-item" href="stock.html" data-label="Stock">
+          <i data-lucide="layers" class="nav-item__icon"></i>
+          <span class="nav-item__label">Stock</span>
+        </a>
+        <a class="nav-item" href="alerts.html" data-label="Alerts">
+          <i data-lucide="bell" class="nav-item__icon"></i>
+          <span class="nav-item__label">Alerts</span>
+          <span class="nav-item__badge" id="alerts-badge">3</span>
+        </a>
+        <a class="nav-item" href="users.html" data-label="Users">
+          <i data-lucide="users" class="nav-item__icon"></i>
+          <span class="nav-item__label">Users</span>
+        </a>
+        <a class="nav-item" href="settings.html" data-label="Settings">
+          <i data-lucide="settings" class="nav-item__icon"></i>
+          <span class="nav-item__label">Settings</span>
+        </a>
+      </nav>
+
+      <!-- User Footer -->
+      <div class="sidebar__user">
+        <div class="user-avatar">JD</div>
+        <div class="user-info">
+          <span class="user-name">James Donovan</span>
+          <span class="user-role">Administrator</span>
+        </div>
+        <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+      </div>
+
+    </aside>
+
+    <!-- ═══════════════════════════════════════ MAIN ═══ -->
+    <div class="main-wrapper">
+
+      <!-- Header -->
+      <header class="main-header">
+        <div class="header__left">
+          <div class="header__title" id="header-title">Dashboard</div>
+          <div class="header__date" id="header-date"></div>
+        </div>
+        <div class="header__right">
+          <button class="alert-pill" onclick="showToast('Laptop Stand Pro', 8)">
+            <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+            <span>3 Low Stock</span>
+          </button>
+          <button class="bell-btn" onclick="showToast('Wireless Keyboard', 5)">
+            <i data-lucide="bell" style="width:17px;height:17px;"></i>
+            <span class="bell-btn__dot"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+
+        <!-- ── DASHBOARD PAGE ── -->
+        <section id="page-dashboard" class="page-section dashboard-page">
+
+          <!-- Stat Cards -->
+          <div class="stat-cards-row">
+
+            <div class="stat-card">
+              <div class="stat-card__top">
+                <span class="stat-card__label">Total Products</span>
+                <div class="stat-card__icon-box">
+                  <i data-lucide="package" style="width:17px;height:17px;color:#888;"></i>
+                </div>
+              </div>
+              <div class="stat-card__value" id="stat-total-products">234</div>
+              <div class="stat-card__sub">Across all categories</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card__top">
+                <span class="stat-card__label">Total Categories</span>
+                <div class="stat-card__icon-box">
+                  <i data-lucide="tag" style="width:17px;height:17px;color:#888;"></i>
+                </div>
+              </div>
+              <div class="stat-card__value" id="stat-total-categories">12</div>
+              <div class="stat-card__sub">Active product groups</div>
+            </div>
+
+            <div class="stat-card stat-card--accent">
+              <div class="stat-card__top">
+                <span class="stat-card__label">Low Stock Items</span>
+                <div class="stat-card__icon-box">
+                  <i data-lucide="alert-triangle" style="width:17px;height:17px;color:#F87171;"></i>
+                </div>
+              </div>
+              <div class="stat-card__value" id="stat-low-stock">3</div>
+              <div class="stat-card__sub">Below reorder threshold</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card__top">
+                <span class="stat-card__label">Total Stock Value</span>
+                <div class="stat-card__icon-box">
+                  <i data-lucide="dollar-sign" style="width:17px;height:17px;color:#888;"></i>
+                </div>
+              </div>
+              <div class="stat-card__value" id="stat-total-value">$84,320</div>
+              <div class="stat-card__sub">Current inventory value</div>
+            </div>
+
+          </div>
+
+          <!-- Charts Row -->
+          <div class="charts-row">
+
+            <div class="chart-panel">
+              <div class="chart-panel__title">Stock Levels Over Time</div>
+              <div class="chart-panel__sub">Monthly aggregate units in inventory</div>
+              <canvas id="chart-stock-time" class="chart-panel__canvas"></canvas>
+            </div>
+
+            <div class="chart-panel">
+              <div class="chart-panel__title">Top Products by Stock</div>
+              <div class="chart-panel__sub">Units currently in stock per product</div>
+              <canvas id="chart-top-products" class="chart-panel__canvas"></canvas>
+            </div>
+
+          </div>
+
+          <!-- Activity Feed -->
+          <div class="activity-panel">
+            <div class="activity-panel__header">
+              <h3 style="font-size:14px;font-weight:600;color:#F5F5F5;margin:0;">Recent Activity</h3>
+              <span style="font-size:11px;color:#555;">Last 24 hours</span>
+            </div>
+            <div class="activity-list" id="activity-list"></div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ TOAST ═══ -->
+  <div id="low-stock-toast" class="toast" hidden>
+    <i data-lucide="alert-triangle" style="width:19px;height:19px;color:#fff;flex-shrink:0;margin-top:2px;"></i>
+    <div class="toast__body">
+      <div class="toast__title">Low Stock Alert</div>
+      <div class="toast__msg"><span class="toast__product">Product</span> has only <span class="toast__units">0</span> units left.</div>
+    </div>
+    <button class="toast__dismiss" id="toast-dismiss">
+      <i data-lucide="x" style="width:15px;height:15px;"></i>
+    </button>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
