@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/categories.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-text__top">Inventory</span>
+        <span class="logo-text__bottom">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item" href="index.html" data-label="Dashboard">
+        <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+        <span class="nav-item__label">Dashboard</span>
+      </a>
+      <a class="nav-item" href="products.html" data-label="Products">
+        <i data-lucide="package" class="nav-item__icon"></i>
+        <span class="nav-item__label">Products</span>
+      </a>
+      <a class="nav-item active" href="categories.html" data-label="Categories">
+        <i data-lucide="tag" class="nav-item__icon"></i>
+        <span class="nav-item__label">Categories</span>
+      </a>
+      <a class="nav-item" href="stock.html" data-label="Stock">
+        <i data-lucide="layers" class="nav-item__icon"></i>
+        <span class="nav-item__label">Stock</span>
+      </a>
+      <a class="nav-item" href="alerts.html" data-label="Alerts">
+        <i data-lucide="bell" class="nav-item__icon"></i>
+        <span class="nav-item__label">Alerts</span>
+        <span class="nav-item__badge" id="alerts-badge" style="display:none;">0</span>
+      </a>
+      <a class="nav-item" href="users.html" data-label="Users">
+        <i data-lucide="users" class="nav-item__icon"></i>
+        <span class="nav-item__label">Users</span>
+      </a>
+      <a class="nav-item" href="settings.html" data-label="Settings">
+        <i data-lucide="settings" class="nav-item__icon"></i>
+        <span class="nav-item__label">Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <span class="user-name">James Donovan</span>
+        <span class="user-role">Administrator</span>
+      </div>
+      <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════ MAIN ══ -->
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header__left">
+        <div class="header__title">Categories</div>
+        <div class="header__date" id="header-date"></div>
+      </div>
+      <div class="header__right">
+        <button class="alert-pill" id="header-alert-pill" style="display:none;">
+          <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+          <span class="pill-count">0</span>&nbsp;Low Stock
+        </button>
+        <button class="bell-btn" id="bell-btn">
+          <i data-lucide="bell" style="width:17px;height:17px;"></i>
+          <span class="bell-btn__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Scroll Area -->
+    <main class="main-content">
+      <section id="page-categories" class="page-section">
+
+        <!-- Page Heading -->
+        <div class="page-heading">
+          <div class="page-heading__left">
+            <h2>Categories</h2>
+            <p id="page-subtitle" class="page-heading__sub">6 categories · manage your product groups</p>
+          </div>
+          <button class="btn-add-category" id="btn-add-category">
+            <i data-lucide="plus"></i>
+            Add Category
+          </button>
+        </div>
+
+        <!-- Card Grid -->
+        <div class="category-grid" id="category-grid">
+          <!-- Rendered by categories.js -->
+        </div>
+
+        <!-- Grid Footer -->
+        <div class="grid-footer">
+          <span class="grid-footer__left">
+            <span id="footer-cat-count">6</span> categories
+          </span>
+          <span class="grid-footer__right">
+            <span id="footer-product-total">86</span> total products
+          </span>
+        </div>
+
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ MODAL ══ -->
+<div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-container" id="modal-container">
+
+    <div class="modal-header">
+      <div class="modal-header__left">
+        <h2 id="modal-title">Add New Category</h2>
+        <p class="modal-subtitle">Create a new product category</p>
+      </div>
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-field">
+        <label class="form-label">Icon</label>
+        <div class="icon-picker" id="icon-picker">
+          <!-- Rendered by categories.js -->
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-name">Category Name</label>
+        <input
+          class="form-input"
+          id="field-name"
+          type="text"
+          placeholder="e.g. Electronics"
+          autocomplete="off"
+        >
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="field-count">Initial Product Count</label>
+        <input
+          class="form-input"
+          id="field-count"
+          type="number"
+          min="0"
+          value="0"
+        >
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel btn-delete" id="btn-delete-category" style="display:none;" aria-label="Delete category">
+        Delete
+      </button>
+      <div class="modal-footer__right">
+        <button class="btn-cancel" id="btn-cancel">Cancel</button>
+        <button class="btn-save" id="btn-save">Add Category</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TOAST ══ -->
+<div id="low-stock-toast" class="toast" role="alert" aria-live="assertive">
+  <i data-lucide="alert-triangle" style="flex-shrink:0;margin-top:2px;"></i>
+  <div class="toast__body">
+    <p class="toast__title">Low Stock Alert</p>
+    <p class="toast__msg">
+      <strong id="toast-product-name"></strong> has only
+      <strong id="toast-units"></strong> units left.
+    </p>
+  </div>
+  <button class="toast__dismiss" id="toast-dismiss-btn" aria-label="Dismiss notification">
+    <i data-lucide="x"></i>
+  </button>
+</div>
+
+<script src="js/dashboard.js"></script>
+<script src="js/categories.js"></script>
+</body>
+</html>
