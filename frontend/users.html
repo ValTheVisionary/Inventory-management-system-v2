@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users — Inventory Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/users.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ══════════════════════════════ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-icon">
+        <i data-lucide="archive" style="width:13px;height:13px;color:#fff;"></i>
+      </div>
+      <div class="logo-text">
+        <span class="logo-text__top">Inventory</span>
+        <span class="logo-text__bottom">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item" href="index.html">
+        <i data-lucide="layout-dashboard" class="nav-item__icon"></i>
+        <span class="nav-item__label">Dashboard</span>
+      </a>
+      <a class="nav-item" href="products.html">
+        <i data-lucide="package" class="nav-item__icon"></i>
+        <span class="nav-item__label">Products</span>
+      </a>
+      <a class="nav-item" href="categories.html">
+        <i data-lucide="tag" class="nav-item__icon"></i>
+        <span class="nav-item__label">Categories</span>
+      </a>
+      <a class="nav-item" href="stock.html">
+        <i data-lucide="layers" class="nav-item__icon"></i>
+        <span class="nav-item__label">Stock</span>
+      </a>
+      <a class="nav-item" href="alerts.html">
+        <i data-lucide="bell" class="nav-item__icon"></i>
+        <span class="nav-item__label">Alerts</span>
+        <span class="nav-item__badge" id="alerts-badge">3</span>
+      </a>
+      <a class="nav-item active" href="users.html">
+        <i data-lucide="users" class="nav-item__icon"></i>
+        <span class="nav-item__label">Users</span>
+      </a>
+      <a class="nav-item" href="settings.html">
+        <i data-lucide="settings" class="nav-item__icon"></i>
+        <span class="nav-item__label">Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <span class="user-name">James Donovan</span>
+        <span class="user-role">Administrator</span>
+      </div>
+      <i data-lucide="settings" style="width:13px;height:13px;color:#888;margin-left:auto;flex-shrink:0;cursor:pointer;"></i>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════ MAIN ══ -->
+  <div class="main-wrapper">
+
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header__left">
+        <div class="header__title">Users</div>
+        <div class="header__date" id="headerDate"></div>
+      </div>
+      <div class="header__right">
+        <button class="alert-pill" id="alertPill">
+          <i data-lucide="shield-alert" style="width:13px;height:13px;"></i>
+          <span id="alertPillText">3 Low Stock</span>
+        </button>
+        <button class="bell-btn" id="bellBtn">
+          <i data-lucide="bell" style="width:17px;height:17px;"></i>
+          <span class="bell-btn__dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="page-section">
+
+        <!-- Toolbar -->
+        <div class="users-toolbar">
+          <div class="search-input-wrapper">
+            <i data-lucide="search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#666;pointer-events:none;"></i>
+            <input
+              type="text"
+              class="search-input"
+              id="searchInput"
+              placeholder="Search by name or email…"
+              aria-label="Search users by name or email"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="select-wrapper">
+            <select class="select-dropdown" id="roleFilter" aria-label="Filter by role">
+              <option value="All">All Roles</option>
+              <option value="Administrator">Administrator</option>
+              <option value="Manager">Manager</option>
+              <option value="Viewer">Viewer</option>
+            </select>
+            <i data-lucide="chevron-down" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:#666;pointer-events:none;"></i>
+          </div>
+
+          <div class="select-wrapper">
+            <select class="select-dropdown" id="statusFilter" aria-label="Filter by status">
+              <option value="All">All Status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+            <i data-lucide="chevron-down" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:#666;pointer-events:none;"></i>
+          </div>
+
+          <button class="btn-primary" id="addUserBtn" aria-label="Add new user">
+            <i data-lucide="user-plus" style="width:15px;height:15px;"></i>
+            Add User
+          </button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="users-table" aria-label="Users list">
+            <thead>
+              <tr>
+                <th class="th-user" scope="col">USER</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">ROLE</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">LAST ACTIVE</th>
+                <th class="th-actions" scope="col">ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <!-- Rendered by users.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer-text" id="footerText">Loading…</p>
+
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ MODAL ══ -->
+<div class="modal-overlay" id="userModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-container" id="modalContainer">
+
+    <div class="modal-header">
+      <div class="modal-title-section">
+        <h2 class="modal-title" id="modalTitle">Add New User</h2>
+        <p class="modal-subtitle" id="modalSubtitle">Add a new team member</p>
+      </div>
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+        <i data-lucide="x" style="width:16px;height:16px;"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-field">
+        <label class="form-label" for="inputName">Full Name</label>
+        <input type="text" class="form-input" id="inputName" placeholder="e.g. Sarah Mitchell" autocomplete="off" />
+        <span class="field-error" id="nameError"></span>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="inputEmail">Email Address</label>
+        <input type="email" class="form-input" id="inputEmail" placeholder="e.g. sarah@company.com" autocomplete="off" />
+        <span class="field-error" id="emailError"></span>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Role</label>
+        <div class="toggle-group" id="roleToggleGroup" role="group" aria-label="Select role">
+          <button class="toggle-btn active" data-value="Administrator" type="button">Administrator</button>
+          <button class="toggle-btn" data-value="Manager" type="button">Manager</button>
+          <button class="toggle-btn" data-value="Viewer" type="button">Viewer</button>
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Status</label>
+        <div class="toggle-group" id="statusToggleGroup" role="group" aria-label="Select status">
+          <button class="toggle-btn toggle-active active" data-value="Active" type="button">Active</button>
+          <button class="toggle-btn toggle-inactive" data-value="Inactive" type="button">Inactive</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="modal-btn modal-btn-cancel" id="modalCancelBtn" type="button">Cancel</button>
+      <button class="modal-btn modal-btn-save" id="modalSaveBtn" type="button">Add User</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TOAST ══ -->
+<div id="low-stock-toast" class="toast" hidden>
+  <i data-lucide="alert-triangle" style="width:19px;height:19px;color:#fff;flex-shrink:0;margin-top:2px;"></i>
+  <div class="toast__body">
+    <div class="toast__title">Low Stock Alert</div>
+    <div class="toast__msg" id="toastMsg">You have unread inventory alerts.</div>
+  </div>
+  <button class="toast__dismiss" id="toastClose" aria-label="Close notification">
+    <i data-lucide="x" style="width:15px;height:15px;"></i>
+  </button>
+</div>
+
+<script src="js/users.js"></script>
+</body>
+</html>
