@@ -15,6 +15,18 @@ A full-stack inventory management application for tracking products, categories,
 - Settings storage by configurable section
 - Static frontend pages for dashboard, products, categories, stock, alerts, users, settings, and authentication
 
+## Screenshots
+
+<img width="1918" height="907" alt="Inventory-registrationpage" src="https://github.com/user-attachments/assets/40b2b6f0-7bab-491b-b62e-93e23bb12ad7" />
+<img width="1917" height="908" alt="Inventory-loginpage" src="https://github.com/user-attachments/assets/f7a21999-4ef4-4303-8495-a919c19b54e5" />
+<img width="1915" height="907" alt="Inventory-dashboardpage" src="https://github.com/user-attachments/assets/c72236de-b939-4a53-b485-f6e9f140d17d" />
+<img width="1916" height="908" alt="Inventory-productpage" src="https://github.com/user-attachments/assets/a85a9e12-1d86-475c-aeac-b3ded0c5c5c1" />
+<img width="1918" height="912" alt="Inventory-categoriespage" src="https://github.com/user-attachments/assets/0e262e9e-5674-4c13-b0a0-f57ccd901e7a" />
+<img width="1918" height="907" alt="Inventory-stockpage" src="https://github.com/user-attachments/assets/241262bb-d3fa-47c4-a328-0207182be128" />
+<img width="1917" height="911" alt="Inventory-alertspage" src="https://github.com/user-attachments/assets/6bfce1fe-a8b5-4cb3-b848-aca21c6444c1" />
+<img width="1917" height="908" alt="Inventory-userspage" src="https://github.com/user-attachments/assets/75a27474-4c84-4106-b784-318398e17ec1" />
+<img width="1918" height="911" alt="Inventory-settingspage" src="https://github.com/user-attachments/assets/31948fe1-ef71-4666-a796-17a0016496bb" />
+
 ## Tech Stack
 
 ### Backend
